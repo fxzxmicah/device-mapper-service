@@ -1,0 +1,18 @@
+[Unit]
+Description=Create device-mapper device %i
+DefaultDependencies=no
+After=systemd-udev-settle.service
+Wants=systemd-udev-settle.service
+Before=local-fs-pre.target
+ConditionPathExists=@sysconfdir@/device-mapper/%i.table
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=@sbindir@/dmsetup create %i @sysconfdir@/device-mapper/%i.table
+ExecStartPost=@sbindir@/partx -a /dev/mapper/%i
+ExecStop=-@sbindir@/partx -d /dev/mapper/%i
+ExecStop=@sbindir@/dmsetup remove %i
+
+[Install]
+WantedBy=local-fs-pre.target
