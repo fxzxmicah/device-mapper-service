@@ -30,6 +30,11 @@ Stop it with:
 systemctl disable --now device-mapper@NAME.service
 ```
 
+If the mapped device contains a partition table, the service asks `partx` to add
+the partition devices. Devices without a partition table are valid too; in that
+case `partx` reports that no partition table can be read and the service
+continues.
+
 ## Generating a Table
 
 Install the generator subpackage, then run:

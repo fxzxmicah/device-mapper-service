@@ -20,6 +20,7 @@ BEGIN {
         sz[i] = int(sz[i] / chunk) * chunk
         used[i] = 0
     }
+
     ndev = ARGC - 1
     ARGC = 1
     pos = 0

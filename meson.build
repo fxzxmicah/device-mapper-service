@@ -1,6 +1,6 @@
 project(
   'device-mapper-service',
-  version: '0.1.0',
+  version: '0.1.1',
   license: 'MIT',
   meson_version: '>= 0.60.0',
 )

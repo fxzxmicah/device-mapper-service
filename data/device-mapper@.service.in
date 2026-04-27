@@ -10,7 +10,7 @@ ConditionPathExists=@sysconfdir@/device-mapper/%i.table
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=@sbindir@/dmsetup create %i @sysconfdir@/device-mapper/%i.table
-ExecStartPost=@sbindir@/partx -a /dev/mapper/%i
+ExecStartPost=-@sbindir@/partx -a /dev/mapper/%i
 ExecStop=-@sbindir@/partx -d /dev/mapper/%i
 ExecStop=@sbindir@/dmsetup remove %i
 
