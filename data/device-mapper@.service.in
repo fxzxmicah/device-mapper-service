@@ -1,9 +1,10 @@
 [Unit]
-Description=Create device-mapper device %i
+Description=Maintain device-mapper device %i
 DefaultDependencies=no
 After=systemd-udev-settle.service
 Wants=systemd-udev-settle.service
 Before=local-fs-pre.target
+ConditionPathExists=!/dev/mapper/%i
 ConditionPathExists=@sysconfdir@/device-mapper/%i.table
 
 [Service]

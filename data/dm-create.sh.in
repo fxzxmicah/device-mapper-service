@@ -1,14 +1,15 @@
 #!@bindir@/sh
 set -eu
 
+[ "$(id -u)" -eq 0 ] || { echo "must be run as root" >&2; exit 1; }
+
 [ "$#" -ge 3 ] || { echo "usage: $0 NAME DEV1 DEV2..." >&2; exit 1; }
 
 name="$1"; shift
 chunk="${CHUNK_SECTORS:-256}"
-dir="@sysconfdir@/device-mapper"
-out="$dir/$name.table"
+dist="@sysconfdir@/device-mapper/$name.table"
 
-mkdir -p "$dir"
+[ ! -e "$dist" ] || { echo "$name.table already exists" >&2; exit 1; }
 
 awk -v chunk="$chunk" '
 BEGIN {
@@ -68,11 +69,11 @@ BEGIN {
         pos += len
     }
 }
-' "$@" > "$out"
+' "$@" > "$dist"
 
-[ -s "$out" ] || { echo "empty table" >&2; rm -f "$out"; exit 1; }
+[ -s "$dist" ] || { echo "empty table" >&2; rm -f "$dist"; exit 1; }
 
-cat "$out"
+cat "$dist"
 
 @bindir@/systemctl daemon-reload
 @bindir@/systemctl enable --now "device-mapper@$name.service"

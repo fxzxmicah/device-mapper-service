@@ -1,5 +1,5 @@
 Name:           device-mapper-service
-Version:        0.1.1
+Version:        0.1.2
 Release:        1%{?dist}
 Summary:        Device-mapper table service
 
@@ -60,5 +60,12 @@ and starts the matching device-mapper@.service instance.
 %{_sbindir}/dm-create
 
 %changelog
+* Tue Apr 28 2026 Fxzx micah <48860358+fxzxmicah@users.noreply.github.com> - 0.1.2-1
+- Add validation for existing table and update output path
+- Ensure the script checks for existing table files and outputs to the correct path.
+
+* Tue Apr 28 2026 Fxzx micah <48860358+fxzxmicah@users.noreply.github.com> - 0.1.1-1
+- Fix service maybe failed
+
 * Tue Apr 28 2026 Fxzx micah <48860358+fxzxmicah@users.noreply.github.com> - 0.1.0-1
 - Initial package
